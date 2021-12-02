@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="movie_page">
+      <h1 id="movie_title">ant man</h1>
+      <div id="movie_details">
+        <div id="credits"></div>
+        <img src="" alt="" id="poster" />
+      </div>
+      <button class="back_btn" onclick="back()">BACK</button>
+    </div>
+  </body>
+  <script>
+    const movieTitle = document.getElementById("movie_title");
+    const detailsDiv = document.getElementById("movie_details");
+    const poster = document.getElementById("poster");
+    const data = JSON.parse(localStorage.getItem("movie"));
+    console.log(data);
+    movieTitle.innerHTML = data.title;
+    const creator = data.creators.items;
+    for (let i = 0; i < creator.length; i++) {
+      var p = document.createElement("p");
+      p.innerHTML = `${creator[i].role} : ${creator[i].name}`;
+      detailsDiv.appendChild(p);
+    }
+    var price = document.createElement("p");
+    price.innerHTML = `Price : $${data.prices[0].price}`;
+    detailsDiv.appendChild(price);
+    poster.src = `${data.thumbnail.path}/portrait_fantastic.jpg`;
+
+    function back() {
+      window.location.href = "./index.html";
+    }
+  </script>
+</html>
